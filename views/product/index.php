@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\ProductType;
+use app\models\Category;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -20,15 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+       
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'product_type_id',
-            'category_id',
-            'name',
-            'description',
+            ['attribute'=>'name', 'label'=>'Name'],
+            ['attribute'=>'product_type_id','label'=>'Product type','content'=>function($data){
+                return ProductType::findOne($data->category_id)->name;
+            }  
+            ],
+            ['attribute'=>'category_id','label'=>'Category','content'=>function($data){
+                return Category::findOne($data->category_id)->name;
+            }  ],
+            
+       
             // 'image',
 
             ['class' => 'yii\grid\ActionColumn'],

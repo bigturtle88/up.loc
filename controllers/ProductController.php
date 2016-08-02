@@ -65,7 +65,14 @@ class ProductController extends Controller
     {
         $model = new Product();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $imageName = $model->name;
+            $model->file = \yii\web\UploadedFile::getInstance($model, 'file');
+        
+            $model->file->saveAs('image/'.$imageName.'.'.  $model->file->extension );
+            $model->image ='image/'.$imageName.'.'. $model->file->extension; 
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -84,7 +91,13 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $imageName = $model->name;
+            $model->file = \yii\web\UploadedFile::getInstance($model, 'file');
+        
+            $model->file->saveAs('image/'.$imageName.'.'.  $model->file->extension );
+            $model->image ='image/'.$imageName.'.'. $model->file->extension; 
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

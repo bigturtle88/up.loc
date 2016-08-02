@@ -18,7 +18,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'product_type_id', 'category_id'], 'integer'],
+            [[ 'product_type_id', 'category_id'], 'integer'],
             [['name', 'description', 'image'], 'safe'],
         ];
     }
@@ -46,7 +46,9 @@ class ProductSearch extends Product
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query,'pagination' => [
+        'pageSize' => 5,
+    ],
         ]);
 
         $this->load($params);

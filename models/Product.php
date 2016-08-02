@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use \yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "product".
  *
@@ -18,6 +18,7 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -32,9 +33,10 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'product_type_id', 'category_id', 'name', 'description', 'image'], 'required'],
-            [['id', 'product_type_id', 'category_id'], 'integer'],
-            [['name', 'description', 'image'], 'string', 'max' => 255],
+            [[ 'product_type_id', 'category_id', 'name', 'description', 'image'], 'required'],
+            [[ 'product_type_id', 'category_id'], 'integer'],
+            [['file'],'file'],
+            [['name', 'description','image'], 'string', 'max' => 255],
             [['product_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductType::className(), 'targetAttribute' => ['product_type_id' => 'id']],
         ];
     }
@@ -57,8 +59,15 @@ class Product extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProductType()
+//    public function getProductType()
+//    {
+//        return $this->hasOne(ProductType::className(), ['id' => 'product_type_id']);
+//    }
+    public function getParentName()
     {
-        return $this->hasOne(ProductType::className(), ['id' => 'product_type_id']);
+    $parent = $this->parent;
+ 
+    return $parent ? $parent->name : '';
     }
+   
 }
