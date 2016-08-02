@@ -35,7 +35,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             [[ 'product_type_id', 'category_id', 'name', 'description', 'image'], 'required'],
             [[ 'product_type_id', 'category_id'], 'integer'],
-            [['file'],'file'],
+            [['file'],'file','skipOnEmpty' => false, 'extensions' => 'png, jpg'],
             [['name', 'description','image'], 'string', 'max' => 255],
             [['product_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductType::className(), 'targetAttribute' => ['product_type_id' => 'id']],
         ];
