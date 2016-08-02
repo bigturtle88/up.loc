@@ -7,7 +7,19 @@ class m160802_173121_category extends Migration {
     public function up() {
         $this->createTable('category', [
             'id' => $this->primaryKey(),
-            'name' => $this->varchar(255),
+            'name' => $this->string(255),
+        ]);
+        $this->insert('category', [
+            'id' => '1',
+            'name' => 'It',
+        ]);
+        $this->insert('category', [
+            'id' => '2',
+            'name' => 'Auto',
+        ]);
+        $this->insert('category', [
+            'id' => '3',
+           'name' => 'House',
         ]);
     }
 

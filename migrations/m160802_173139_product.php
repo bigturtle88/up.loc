@@ -7,11 +7,11 @@ class m160802_173139_product extends Migration {
     public function up() {
         $this->createTable('product', [
             'id' => $this->primaryKey(),
-            'product_type_id' => $this->intager(),
-            'category_id' => $this->intager(),
-            'name' => $this->varchar(255),
-            'description' => $this->varchar(255),
-            'image' => $this->varchar(255),
+            'product_type_id' => $this->integer(),
+            'category_id' => $this->integer(),
+            'name' => $this->string(255),
+            'description' => $this->string(255),
+            'image' => $this->string(255),
         ]);
     }
 
